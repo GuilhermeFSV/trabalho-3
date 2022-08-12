@@ -1,0 +1,61 @@
+import java.util.Scanner;
+
+public abstract class Account {
+    protected String name;
+    protected String password;
+    protected String email;
+    protected Scanner s;
+
+    RestaurantManager restaurants;
+    OrderManager orders;
+    DishManager dishes;
+
+    public Account(String name, String password, String email, RestaurantManager restaurants, DishManager dishes,
+            OrderManager orders) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.restaurants = restaurants;
+        this.dishes = dishes;
+        this.orders = orders;
+        s = new Scanner(System.in);
+    }
+
+    public boolean hasValidCredentials(String email, String password) {
+        return this.email.equals(email)
+                && this.password.equals(password);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public abstract String role();
+
+    public void runUseCases() {
+        while (true) {
+            int opcao = menu();
+
+            if (opcao != 0)
+                executeOption(opcao);
+            else
+                break;
+        }
+    }
+
+    public String toString() {
+        return name + " (email=" + email + ", role=" + role() + ")";
+    }
+
+    protected abstract int menu();
+
+    protected abstract void executeOption(int opcao);
+}
