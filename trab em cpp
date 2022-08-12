@@ -1,0 +1,54 @@
+#include "Account.h"
+
+
+Account::Account(const std::wstring &name, const std::wstring &password, const std::wstring &email, RestaurantManager *restaurants, DishManager *dishes, OrderManager *orders)
+{
+	this->name = name;
+	this->password = password;
+	this->email = email;
+	this->restaurants = restaurants;
+	this->dishes = dishes;
+	this->orders = orders;
+}
+
+bool Account::hasValidCredentials(const std::wstring &email, const std::wstring &password)
+{
+	return this->email == email && this->password == password;
+}
+
+std::wstring Account::getName()
+{
+	return name;
+}
+
+std::wstring Account::getEmail()
+{
+	return email;
+}
+
+std::wstring Account::getPassword()
+{
+	return password;
+}
+
+void Account::runUseCases()
+{
+	while (true)
+	{
+		int opcao = menu();
+
+		if (opcao != 0)
+		{
+			executeOption(opcao);
+		}
+		else
+		{
+			break;
+		}
+	}
+}
+
+std::wstring Account::toString()
+{
+	return name + L" (email=" + email + L", role=" + role() + L")";
+}
